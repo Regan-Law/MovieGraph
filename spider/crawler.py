@@ -8,7 +8,7 @@ import random
 from proxy_pool import getHtml
 
 # 请求热门电影的URL
-url = "https://movie.douban.com/j/search_subjects?type=movie&tag=%E7%83%AD%E9%97%A8&page_limit=10&page_start=0"
+url = "https://movie.douban.com/j/search_subjects?type=movie&tag=%E7%83%AD%E9%97%A8&page_limit=10&page_start=60"
 headers = {
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36 Edg/120.0.0.0",
 }
@@ -222,20 +222,3 @@ for movie in data["subjects"]:
                 index=False,
                 header=False,
             )
-
-# # 去重
-# pd.read_csv("./data/movie.csv").drop_duplicates(subset=["url"]).to_csv(
-#     "./data/movie.csv", index=False
-# )
-# pd.read_csv("./data/person.csv").drop_duplicates(subset=["name", "bio"]).to_csv(
-#     "./data/person.csv", index=False
-# )
-# pd.read_csv("./data/genre.csv").drop_duplicates(subset=["name"]).to_csv(
-#     "./data/genre.csv", index=False
-# )
-# pd.read_csv("./data/movie_to_genre.csv").drop_duplicates(subset=["mid", "gid"]).to_csv(
-#     "./data/movie_to_genre.csv", index=False
-# )
-# pd.read_csv("./data/person_to_movie.csv").drop_duplicates(subset=["pid", "mid"]).to_csv(
-#     "./data/person_to_movie.csv", index=False
-# )
