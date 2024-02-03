@@ -8,7 +8,7 @@ import random
 from proxy_pool import getHtml
 
 # 请求热门电影的URL
-url = "https://movie.douban.com/j/search_subjects?type=movie&tag=%E7%83%AD%E9%97%A8&page_limit=10&page_start=60"
+url = "https://movie.douban.com/j/search_subjects?type=movie&tag=%E7%83%AD%E9%97%A8&page_limit=10&page_start=100"
 headers = {
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36 Edg/120.0.0.0",
 }
@@ -60,7 +60,7 @@ for movie in data["subjects"]:
         # 初始化数据列表
         movies = []
         # 添加随机时间延迟
-        time.sleep(random.uniform(5, 6))  # 随机等待5到6秒
+        time.sleep(5)  # 随机等待5秒
         # 解析电影详细数据
         movie_response = getHtml(movie_url, headers)
         movie_soup = BeautifulSoup(movie_response.text, "html.parser")
@@ -111,7 +111,7 @@ for movie in data["subjects"]:
             actor_url = "https://movie.douban.com" + actor["href"]  # 获取演员的URL
 
             # 添加随机时间延迟
-            time.sleep(random.uniform(5, 6))  # 随机等待5到6秒
+            time.sleep(5)  # 随机等待5秒
             # 读取演员csv文件
             person_csv = pd.read_csv("./data/person.csv")
             # 如果演员未出现过，获取演员信息
