@@ -1,14 +1,13 @@
 import os
-from bs4 import BeautifulSoup
-import pandas as pd
 import time
-import random
 
+import pandas as pd
+from bs4 import BeautifulSoup
 
 from proxy_pool import getHtml
 
 # 请求热门电影的URL
-url = "https://movie.douban.com/j/search_subjects?type=movie&tag=%E7%83%AD%E9%97%A8&page_limit=10&page_start=100"
+url = "https://movie.douban.com/j/search_subjects?type=movie&tag=%E6%9C%80%E6%96%B0&page_limit=360&page_start=0"
 headers = {
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36 Edg/120.0.0.0",
 }
@@ -18,24 +17,24 @@ genre_header = ["gid", "name"]
 movie_to_genre_header = ["mid", "gid"]
 person_to_movie_header = ["pid", "mid"]
 # 创建csv文件
-if not os.path.exists("./data/movie.csv"):
+if not os.path.exists("./data/Neo4j_import/movie.csv"):
     headers = pd.DataFrame(columns=movie_header)
-    headers.to_csv("./data/movie.csv", index=False)
-if not os.path.exists("./data/person.csv"):
+    headers.to_csv("./data/Neo4j_import/movie.csv", index=False)
+if not os.path.exists("./data/Neo4j_import/person.csv"):
     headers = pd.DataFrame(columns=person_header)
-    headers.to_csv("./data/person.csv", index=False)
+    headers.to_csv("./data/Neo4j_import/person.csv", index=False)
 
-if not os.path.exists("./data/genre.csv"):
+if not os.path.exists("./data/Neo4j_import/genre.csv"):
     headers = pd.DataFrame(columns=genre_header)
-    headers.to_csv("./data/genre.csv", index=False)
+    headers.to_csv("./data/Neo4j_import/genre.csv", index=False)
 
-if not os.path.exists("./data/movie_to_genre.csv"):
+if not os.path.exists("./data/Neo4j_import/movie_to_genre.csv"):
     headers = pd.DataFrame(columns=movie_to_genre_header)
-    headers.to_csv("./data/movie_to_genre.csv", index=False)
+    headers.to_csv("./data/Neo4j_import/movie_to_genre.csv", index=False)
 
-if not os.path.exists("./data/person_to_movie.csv"):
+if not os.path.exists("./data/Neo4j_import/person_to_movie.csv"):
     headers = pd.DataFrame(columns=person_to_movie_header)
-    headers.to_csv("./data/person_to_movie.csv", index=False)
+    headers.to_csv("./data/Neo4j_import/person_to_movie.csv", index=False)
 
 # 获取请求数据
 response = getHtml(url, headers)
@@ -49,7 +48,7 @@ person_dict = {}
 for movie in data["subjects"]:
     movie_url = movie["url"]
     # 去重判断
-    movie_csv = pd.read_csv("./data/movie.csv")
+    movie_csv = pd.read_csv("./data/Neo4j_import/movie.csv")
     if movie_csv["url"].isin([movie_url]).any():
         continue
     else:
@@ -98,7 +97,7 @@ for movie in data["subjects"]:
         )
         # 存入csv文件
         movies.to_csv(
-            "./data/movie.csv",
+            "./data/Neo4j_import/movie.csv",
             index=False,
             mode="a",
             header=False,
@@ -113,7 +112,7 @@ for movie in data["subjects"]:
             # 添加随机时间延迟
             time.sleep(5)  # 随机等待5秒
             # 读取演员csv文件
-            person_csv = pd.read_csv("./data/person.csv")
+            person_csv = pd.read_csv("./data/Neo4j_import/person.csv")
             # 如果演员未出现过，获取演员信息
             if (
                 not person_csv["url"].isin([actor_url]).any()
@@ -151,7 +150,7 @@ for movie in data["subjects"]:
                 )
                 # 存入csv文件中
                 pd.DataFrame(persons).to_csv(
-                    "./data/person.csv",
+                    "./data/Neo4j_import/person.csv",
                     index=False,
                     mode="a",
                     header=False,
@@ -173,7 +172,7 @@ for movie in data["subjects"]:
             )
             # 存入csv文件中
             pd.DataFrame(person_to_movie).to_csv(
-                "./data/person_to_movie.csv",
+                "./data/Neo4j_import/person_to_movie.csv",
                 index=False,
                 mode="a",
                 header=False,
@@ -185,7 +184,7 @@ for movie in data["subjects"]:
         for genre in movie_genres:
             genre_name = genre.text
             # 读取类型csv文件
-            genre_csv = pd.read_csv("./data/genre.csv")
+            genre_csv = pd.read_csv("./data/Neo4j_import/genre.csv")
             # 如果类型未出现过
             if not genre_csv["name"].isin([genre_name]).any():
                 # 分配新的gid
@@ -203,7 +202,7 @@ for movie in data["subjects"]:
                 )
                 # 存入csv文件中
                 pd.DataFrame(genres).to_csv(
-                    "./data/genre.csv", mode="a", index=False, header=False
+                    "./data/Neo4j_import/genre.csv", mode="a", index=False, header=False
                 )
             else:
                 gid = genre_csv.loc[genre_csv["name"] == genre_name, "gid"].values[0]
@@ -217,7 +216,7 @@ for movie in data["subjects"]:
             )
             # 存入csv文件中
             pd.DataFrame(movie_to_genre).to_csv(
-                "./data/movie_to_genre.csv",
+                "./data/Neo4j_import/movie_to_genre.csv",
                 mode="a",
                 index=False,
                 header=False,
