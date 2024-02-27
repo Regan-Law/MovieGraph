@@ -1,5 +1,6 @@
 import os
 import time
+from networkx import null_graph
 
 import pandas as pd
 from bs4 import BeautifulSoup
@@ -7,7 +8,7 @@ from bs4 import BeautifulSoup
 from proxy_pool import getHtml
 
 # 请求热门电影的URL
-url = "https://movie.douban.com/j/search_subjects?type=movie&tag=%E6%9C%80%E6%96%B0&page_limit=360&page_start=0"
+url = "https://movie.douban.com/j/search_subjects?type=movie&tag=%E6%9C%80%E6%96%B0&page_limit=1&page_start=0"
 headers = {
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36 Edg/120.0.0.0",
 }
@@ -131,8 +132,12 @@ for movie in data["subjects"]:
                     else:
                         actor_bio_element = actor_bio_locate
                     actor_bio = actor_bio_element.get_text(strip=True)
+                    if not actor_bio:
+                        actor_bio = (
+                            "No biography available"  # 导入Neo4j时不能使用空值,踩坑
+                        )
                 else:
-                    actor_bio = "No biography available"
+                    actor_bio = "No biography available"  # 导入Neo4j时不能使用空值
                 # 分配新的pid
                 if person_csv["pid"].isnull().all():
                     pid = 0
