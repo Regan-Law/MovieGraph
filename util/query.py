@@ -15,7 +15,7 @@ class Query:  # 查询类
         return result
 
 
-# if __name__ == '__main__':
-#     SQL=Query()
-#     result=SQL.run("match (m:Movie)-[]->() where m.title='怪物' return m.rating")
+# if __name__ == "__main__":
+#     SQL = Query()
+#     result = SQL.run("match (m:Movie)-[]->() where m.title='怪物' return m.rating")
 #     print(result)

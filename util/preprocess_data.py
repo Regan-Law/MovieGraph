@@ -10,26 +10,13 @@ import sys
 
 import jieba.posseg
 
-from question_classification import Question_classify
-from question_template import QuestionTemplate
-
-
-# # 将自定义字典写入文件
-# result = []
-# with(open("./data/userdict.txt","r",encoding="utf-8")) as fr:
-#     vocablist=fr.readlines()
-#     for one in vocablist:
-#         if str(one).strip()!="":
-#             temp=str(one).strip()+" "+str(15)+" nr"+"\n"
-#             result.append(temp)
-# with(open("./data/userdict2.txt","w",encoding="utf-8")) as fw:
-#     for one in result:
-#         fw.write(one)
+from util.question_classification import Question_classify
+from util.question_template import QuestionTemplate
 
 
 # Disable
 def blockPrint():
-	sys.stdout = open(os.devnull, 'w')
+	sys.stdout = open(os.devnull, "w")
 
 
 # Restore
@@ -63,7 +50,9 @@ class Question:
 		# 训练分类器
 		self.classify_model = Question_classify()
 		# 读取问题模板
-		with(open("./data/question/question_classification.txt", "r", encoding="utf-8")) as f:
+		with open(
+				"../data/question/question_classification.txt", "r", encoding="utf-8"
+		) as f:
 			question_mode_list = f.readlines()
 		self.question_mode_dict = {}
 		for one_mode in question_mode_list:
@@ -85,11 +74,15 @@ class Question:
 		self.question_template_id_str = self.get_question_template()
 		# 查询图数据库,得到答案
 		self.answer = self.query_template()
-		return (self.answer)
+		return self.answer
 
 	def question_posseg(self):
-		jieba.load_userdict("./data/userdict3.txt")
-		clean_question = re.sub("[\s+\.\!\/_,$%^*(+\"\')]+|[+——()?【】“”！，。？、~@#￥%……&*（）]+", "", self.raw_question)
+		jieba.load_userdict("../data/user_dict.txt")
+		clean_question = re.sub(
+			"[\s+\.\!\/_,$%^*(+\"')]+|[+——()?【】“”！，。？、~@#￥%……&*（）]+",
+			"",
+			self.raw_question,
+		)
 		self.clean_question = clean_question
 		question_seged = jieba.posseg.cut(str(clean_question))
 		result = []
@@ -109,8 +102,8 @@ class Question:
 
 	def get_question_template(self):
 		# 抽象问题
-		for item in ['nr', 'nm', 'ng']:
-			while (item in self.question_flag):
+		for item in ["nr", "nm", "ng"]:
+			while item in self.question_flag:
 				ix = self.question_flag.index(item)
 				self.question_word[ix] = item
 				self.question_flag[ix] = item + "ed"
@@ -129,8 +122,15 @@ class Question:
 	def query_template(self):
 		# 调用问题模板类中的获取答案的方法
 		try:
-			answer = self.questiontemplate.get_question_answer(self.pos_quesiton, self.question_template_id_str)
+			answer = self.questiontemplate.get_question_answer(
+				self.pos_quesiton, self.question_template_id_str
+			)
 		except:
 			answer = "我也还不知道！"
 		# answer = self.questiontemplate.get_question_answer(self.pos_quesiton, self.question_template_id_str)
 		return answer
+
+
+if __name__ == "__main__":
+	q = Question()
+	q.question_process("怪物是由谁出演的")

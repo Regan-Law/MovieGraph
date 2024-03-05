@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="utf-8"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1"/>
+	<link href="/app/staticotstrap.min.css" rel="stylesheet"/>
+	<title>欢迎探索</title>
+	<style>
+        body {
+            background-size: auto;
+            background: url("../static/img/welcome.jpg") no-repeat fixed center;
+        }
+	</style>
+</head>
+<body>
+<div class="container-fluid">
+	<div class="container" style="margin-top: 130px">
+		<h1 style="color: white; text-align: center">
+			基于Neo4j的电影知识图谱问答系统
+		</h1>
+	</div>
+	<div class="row align-items-center" style="margin-top: 80px">
+		<div class="d-flex justify-content-center">
+			<a
+					class="btn btn-light btn-lg"
+					href="{{ url_for('start') }}"
+					style="font-weight: bolder"
+			>开启探索</a
+			>
+		</div>
+	</div>
+</div>
+<script src="/static/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
