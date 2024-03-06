@@ -1,6 +1,5 @@
 import os
 import time
-from networkx import null_graph
 
 import pandas as pd
 from bs4 import BeautifulSoup
