@@ -33,7 +33,7 @@ class Question_classify:
 	def read_train_data(self):
 		train_x = []
 		train_y = []
-		file_list = getfilelist("../data/question/")
+		file_list = getfilelist("flaskr/data/question/")
 		# 遍历所有文件
 		for one_file in file_list:
 			# 获取文件名中的数字
