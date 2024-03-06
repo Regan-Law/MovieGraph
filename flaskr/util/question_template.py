@@ -1,6 +1,6 @@
 import re
 
-from util.query import Query
+from flaskr.util.query import Query
 
 
 # 问题模板

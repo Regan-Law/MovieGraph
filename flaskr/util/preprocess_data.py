@@ -1,17 +1,10 @@
-"""
-接收原始问题
-对原始问题进行分词、词性标注等处理
-对问题进行抽象
-"""
-
 import os
 import re
 import sys
 
 import jieba.posseg
 
-from util.question_classification import Question_classify
-from util.question_template import QuestionTemplate
+from flaskr.util.question_template import QuestionTemplate
 
 
 # Disable
@@ -27,7 +20,6 @@ def enablePrint():
 # blockPrint()
 
 # enablePrint()
-
 
 class Question:
 	def __init__(self):
@@ -48,6 +40,7 @@ class Question:
 		# self.vocab=vocab_dict
 
 		# 训练分类器
+		from flaskr.util.question_classification import Question_classify
 		self.classify_model = Question_classify()
 		# 读取问题模板
 		with open(
