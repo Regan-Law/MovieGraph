@@ -5,6 +5,7 @@
 ## 项目简介
 
 本项目使用了Neo4j作为知识图谱的存储引擎，使用Python实现对电影的查询和回答。主要使用了flask作为web应用框架,sk-learn作为作为训练模型,jieba库作为中文分词模块,BeautifulSoup4库作为网页爬取模块,py2neo库作为Neo4j的Python接口.
+[项目地址](https://github.com/Regan-Law/MovieGraph)
 
 ## 项目结构
 - flaskr: 项目源码
@@ -38,7 +39,7 @@
         - question_classification.py: 使用了sk-learn朴素贝叶斯进行训练并使用TF-IDF进行特征提取和jieba库进行切割以完成对问题的分类
         - question_template.py: 定义了问题模板,用于对问题进行匹配,返回对应问题模板
         - query.py: 用于连接数据库并执行查询,返回查询结果
-    - \_\_init\_\_.py`: 应用工厂文件,用于创建应用
+    - \_\_init\_\_.py: 应用工厂文件,用于创建应用
     - app.py: 应用文件,运行可启动本项目,**注意:运行前确保Neo4j数据库已连接且地址端口`localhost:5000`未被占用**
     - test: 测试用文件夹,用于测试
     - README.md: 项目说明文件
