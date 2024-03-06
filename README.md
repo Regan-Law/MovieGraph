@@ -1,11 +1,11 @@
 # MovieGraph
 
-基于Neo4j的电影知识图谱的设计与实现
+[基于Neo4j的电影知识图谱的设计与实现](https://github.com/Regan-Law/MovieGraph)
 
 ## 项目简介
 
 本项目使用了Neo4j作为知识图谱的存储引擎，使用Python实现对电影的查询和回答。主要使用了flask作为web应用框架,sk-learn作为作为训练模型,jieba库作为中文分词模块,BeautifulSoup4库作为网页爬取模块,py2neo库作为Neo4j的Python接口.
-[项目地址](https://github.com/Regan-Law/MovieGraph)
+
 
 ## 项目结构
 - flaskr: 项目源码
