@@ -22,17 +22,17 @@ def getfilelist(root_path):
 def read_train_data():
 	train_x = []
 	train_y = []
-	file_list = getfilelist("flaskr/data/question/")
+	file_list = getfilelist("../flaskr/data/question/")
 	# 遍历所有文件
 	for one_file in file_list:
 		# 获取文件名中的数字
-		num = re.sub(r"\D", "", one_file)
+		num = re.sub(r'\D', "", one_file)
 		# 如果该文件名有数字，则读取该文件
 		if str(num).strip() != "":
 			# 设置当前文件下的数据标签
 			label_num = int(num)
 			# 读取文件内容
-			with open(one_file, "r", encoding="utf-8") as fr:
+			with(open(one_file, "r", encoding="utf-8")) as fr:
 				data_list = fr.readlines()
 				for one_line in data_list:
 					word_list = list(jieba.cut(str(one_line).strip()))
@@ -66,4 +66,5 @@ class Question_classify:
 		question = [" ".join(list(jieba.cut(question)))]
 		test_data = self.tv.transform(question).toarray()
 		y_predict = self.model.predict(test_data)[0]
+		print("question type:", y_predict)
 		return y_predict

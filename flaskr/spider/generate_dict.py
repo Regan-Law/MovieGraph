@@ -14,13 +14,17 @@ with open(f"{output_folder}user_dict.txt", "w", encoding="utf-8") as f:
 		parts = row["title"].split(' ', 1)  # 最多分割一次，确保只分割中文名和外文名
 		if len(parts) == 2:
 			chinese_title, foreign_title = parts
-			f.write(f'{chinese_title} nm\n')  # 中文名
-			f.write(f'{foreign_title} nm\n')  # 外文名
+			# 检查并移除句号
+			chinese_title = chinese_title.replace('。', '')
+			foreign_title = foreign_title.replace('。', '')
+			f.write(f'{chinese_title} 15 nm\n')  # 中文名，词频设置为15
+			f.write(f'{foreign_title} 15 nm\n')  # 外文名，词频设置为15
 		else:
 			# 如果没有外文名，或者格式不符合预期，直接写入整个标题
-			f.write(f'{row["title"]} nm\n')
+			title = row["title"].replace('。', '')  # 移除句号
+			f.write(f'{row["title"]} 15 nm\n')  # 整个标题，词频设置为15
 	for person in person:
-		f.write(f'{person} nr\n')
+		f.write(f'{person} 15 nr\n')  # 人名，词频设置为15
 
 	for genre in genre:
-		f.write(f'{genre} ng\n')
+		f.write(f'{genre} 15 ng\n')  # 类型名，词频设置为15

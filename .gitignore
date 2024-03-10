@@ -6,3 +6,9 @@
 # Datasource local storage ignored files
 /dataSources/
 /dataSources.local.xml
+# Package of project
+node_modules/
+# Vscode workspace
+.vscode/
+# IDE files
+.idea/

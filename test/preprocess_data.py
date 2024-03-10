@@ -4,8 +4,8 @@ import sys
 
 import jieba.posseg
 
-from flaskr.util.question_classification import Question_classify
-from flaskr.util.question_template import QuestionTemplate
+from question_classification import Question_classify
+from question_template import QuestionTemplate
 
 
 # Disable
@@ -30,23 +30,21 @@ class Question:
 
 	def init_config(self):
 		# # 读取词汇表
-		with(open("flaskr/data/vocabulary.txt", "r", encoding="utf-8")) as fr:
-			vocab_list = fr.readlines()
-		vocab_dict = {}
-		vocablist = []
-		for one in vocab_list:
-			word_id, word = str(one).strip().split(":")
-			vocab_dict[str(word).strip()] = int(word_id)
-			vocablist.append(str(word).strip())
-		# print(vocab_dict)
-		self.vocab = vocab_dict
+		# with(open("../flaskr/data/vocabulary.txt", "r", encoding="utf-8")) as fr:
+		# 	vocab_list = fr.readlines()
+		# vocab_dict = {}
+		# vocablist = []
+		# for one in vocab_list:
+		# 	word_id, word = str(one).strip().split(":")
+		# 	vocab_dict[str(word).strip()] = int(word_id)
+		# 	vocablist.append(str(word).strip())
+		# # print(vocab_dict)
+		# self.vocab = vocab_dict
 
 		# 训练分类器
 		self.classify_model = Question_classify()
 		# 读取问题模板
-		with open(
-				"flaskr/data/question/question_classification.txt", "r", encoding="utf-8"
-		) as f:
+		with(open("../flaskr/data/question/question_classification.txt", "r", encoding="utf-8")) as f:
 			question_mode_list = f.readlines()
 		self.question_mode_dict = {}
 		for one_mode in question_mode_list:
@@ -71,9 +69,9 @@ class Question:
 		return self.answer
 
 	def question_posseg(self):
-		jieba.load_userdict("flaskr/data/user_dict.txt")
+		jieba.load_userdict("../flaskr/data/user_dict.txt")
 		clean_question = re.sub(
-			"[\s+\.\!\/_,$%^*(+\"')]+|[+——()?【】“”！，。？、~@#￥%……&*（）]+",
+			"[\s+\!\/_,$%^*(+\"')]+|[+——()?【】“”！，。？、~@#￥%……&*（）]+",
 			"",
 			self.raw_question,
 		)

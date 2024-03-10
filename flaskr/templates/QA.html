@@ -1,37 +1,42 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
-<head>
-	<meta charset="utf-8"/>
-	<meta name="viewport" content="width=device-width, initial-scale=1"/>
-	<link href="../static/css/bootstrap.min.css" rel="stylesheet"/>
-	<link href="../static/css/style.css" rel="stylesheet"/>
-	<title>基于Neo4j的电影知识图谱问答系统</title>
-</head>
-<body>
-<div class="container-flux justify-content-center">
-	<div class="wrapper container">
-		<div class="row">
-			<h1 style="color: white; text-align: center">
-				基于Neo4j的电影知识图谱问答系统
-			</h1>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<link href="../static/css/bootstrap.min.css" rel="stylesheet" />
+		<link href="../static/css/style.css" rel="stylesheet" />
+		<title>基于Neo4j的电影知识图谱问答系统</title>
+	</head>
+	<body>
+		<div class="container-flux justify-content-center">
+			<div class="wrapper container">
+				<div class="row">
+					<h1 style="color: white; text-align: center">
+						基于Neo4j的电影知识图谱问答系统
+					</h1>
+				</div>
+				<div id="chat" class="test-1"></div>
+				<div class="input-group">
+					<label for="info"></label
+					><input
+						type="text"
+						id="info"
+						placeholder="请输入问题"
+						class="form-control"
+					/>
+					<button
+						type="submit"
+						id="send"
+						class="btn btn-outline-light"
+					>
+						提问
+					</button>
+				</div>
+			</div>
 		</div>
-		<div id="chat" class="test-1"></div>
-		<div class="input-group">
-			<label for="info"></label><input
-				type="text"
-				id="info"
-				placeholder="请输入问题"
-				class="form-control"
-		/>
-			<button type="submit" id="send" class="btn btn-outline-light">
-				提问
-			</button>
-		</div>
-	</div>
-</div>
-<script src="../static/js/jquery-3.1.1.min.js"></script>
-<script src="../static/js/bootstrap.min.js"></script>
-<script src="../static/js/bootstrap.bundle.js"></script>
-<script src="../static/js/main.js"></script>
-</body>
+		<script src="../static/js/jquery-3.1.1.min.js"></script>
+		<script src="../static/js/bootstrap.min.js"></script>
+		<script src="../static/js/bootstrap.bundle.js"></script>
+		<script src="../static/js/main.js"></script>
+	</body>
 </html>

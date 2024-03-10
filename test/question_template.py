@@ -73,8 +73,18 @@ class QuestionTemplate:
 			return result_list
 
 	def get_num_x(self):
-		x = re.sub(r"\D", "", "".join(self.question_word))
+		x = re.sub(r"[^\d.]", "", "".join(self.question_word))
 		return x
+
+	# 查询演员演过的电影列表
+	def get_actorname_movie_list(self, actorname):
+		# 查询电影名称
+		cql = f"match(n:Person)-[]->(m:Movie) where n.name contains '{actorname}' return m.title"
+		print(cql)
+		answer = self.graph.run(cql)
+		answer_set = set(answer)
+		answer_list = list(answer_set)
+		return answer_list
 
 	# 0:nm 评分
 	def get_movie_rating(self):
@@ -135,7 +145,7 @@ class QuestionTemplate:
 	# 5:nnt 介绍
 	def get_actor_info(self):
 		actor_name = self.get_name("nr")
-		cql = f"match(n:Person)-[]->() where n.name='{actor_name}' return n.bio"
+		cql = f"match(n:Person)-[]->() where n.name contains'{actor_name}' return n.bio"
 		print(cql)
 		answer = self.graph.run(cql)[0]
 		final_answer = answer
@@ -145,20 +155,19 @@ class QuestionTemplate:
 	def get_actor_act_type_movie(self):
 		actor_name = self.get_name("nr")
 		type = self.get_name("ng")
-		# 查询电影名称
-		cql = (
-			f"match(n:Person)-[]->(m:Movie) where n.name='{actor_name}' return m.title"
-		)
-		print(cql)
-		movie_name_list = list(set(self.graph.run(cql)))
+		print(type)
+		movie_name_list = self.get_actorname_movie_list(actor_name)
 		# 查询类型
 		result = []
 		for movie_name in movie_name_list:
 			movie_name = str(movie_name).strip()
 			try:
-				cql = f"match(m:Movie)-[r:is]->(t) where m.title contains '{movie_name}' return t.name"
-				# print(cql)
+				cql = f"match(m:Movie)-[r:is]->(t) where m.title='{movie_name}' return t.name"
+				print(cql)
 				temp_type = self.graph.run(cql)
+				print(temp_type)
+				print(len(temp_type))
+				print(movie_name)
 				if len(temp_type) == 0:
 					continue
 				if type in temp_type:
@@ -178,20 +187,11 @@ class QuestionTemplate:
 		final_answer = actor_name + "演过" + str(answer) + "等电影！"
 		return final_answer
 
-	def get_actorname_movie_list(self, actorname):
-		# 查询电影名称
-		cql = f"match(n:Person)-[]->(m:Movie) where n.name='{actorname}' return m.title"
-		print(cql)
-		answer = self.graph.run(cql)
-		answer_set = set(answer)
-		answer_list = list(answer_set)
-		return answer_list
-
 	# 8:nnt 参演评分 大于 x
 	def get_movie_rating_bigger(self):
 		actor_name = self.get_name("nr")
 		x = self.get_num_x()
-		cql = f"match(n:Person)-[r:actedin]->(m:Movie) where n.name='{actor_name}' and m.rating>={x} return m.title"
+		cql = f"match(n:Person)-[r:actedin]->(m:Movie) where n.name contains '{actor_name}' and m.rating>={x} return m.title"
 		print(cql)
 		answer = self.graph.run(cql)
 		answer = "、".join(answer)
@@ -199,10 +199,12 @@ class QuestionTemplate:
 		final_answer = actor_name + "演的电影评分大于" + x + "分的有" + answer + "等！"
 		return final_answer
 
+	# 9:nnt 参演评分 小于 x
 	def get_movie_rating_smaller(self):
 		actor_name = self.get_name("nr")
 		x = self.get_num_x()
-		cql = f"match(n:Person)-[r:actedin]->(m:Movie) where n.name='{actor_name}' and m.rating<{x} return m.title"
+		print("x:" + x)
+		cql = f"match(n:Person)-[r:actedin]->(m:Movie) where n.name contains '{actor_name}' and m.rating<{x} return m.title"
 		print(cql)
 		answer = self.graph.run(cql)
 		answer = "、".join(answer)
@@ -210,11 +212,12 @@ class QuestionTemplate:
 		final_answer = actor_name + "演的电影评分小于" + x + "分的有" + answer + "等！"
 		return final_answer
 
+	# 10:nnt 电影类型
 	def get_actor_movie_type(self):
 		actor_name = self.get_name("nr")
 		# 查询电影名称
 		cql = (
-			f"match(n:Person)-[]->(m:Movie) where n.name='{actor_name}' return m.title"
+			f"match(n:Person)-[]->(m:Movie) where n.name contains '{actor_name}' return m.title"
 		)
 		print(cql)
 		movie_name_list = list(set(self.graph.run(cql)))
@@ -223,8 +226,8 @@ class QuestionTemplate:
 		for movie_name in movie_name_list:
 			movie_name = str(movie_name).strip()
 			try:
-				cql = f"match(m:Movie)-[r:is]->(t) where m.title contains '{movie_name}' return t.name"
-				# print(cql)
+				cql = f"match(m:Movie)-[r:is]->(t) where m.title='{movie_name}' return t.name"
+				print(cql)
 				temp_type = self.graph.run(cql)
 				if len(temp_type) == 0:
 					continue
@@ -236,6 +239,7 @@ class QuestionTemplate:
 		final_answer = actor_name + "演过的电影有" + answer + "等类型。"
 		return final_answer
 
+	# 11:nnt 电影合作
 	def get_cooperation_movie_list(self):
 		# 获取演员名字
 		actor_name_list = self.get_name("nr")
@@ -256,6 +260,7 @@ class QuestionTemplate:
 		)
 		return final_answer
 
+	# 12:nnt 电影数量
 	def get_actor_movie_num(self):
 		actor_name = self.get_name("nr")
 		answer_list = self.get_actorname_movie_list(actor_name)

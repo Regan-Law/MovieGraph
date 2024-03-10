@@ -42,7 +42,7 @@ send.click(function () {
         show("聊点啥吧！");
     } else {
         // 清空发送框
-        $('#info').val('');
+        info.val('');
         // 把发送内容添加到聊天框
         p = "<div class='me'><div class='qipao'></div><div class='item'>" + text + '</div></div>';
         chat.append(p);
@@ -73,3 +73,15 @@ function diff_time(time) {
     } else
         return true;
 }
+var config = {
+    container_id: "viz",
+    server_url: "bolt://your-neo4j-server-url:7687",
+    server_user: "username",
+    server_password: "password",
+    labels: { /* 如果需要的话，定义节点和关系的标签 */ },
+    relationship_width: function(/* ... */) {},
+    initial_cypher: "MATCH (n)-[r]->(m) RETURN n,r,m"
+};
+
+var viz = new NeoVis.default(config);
+viz.render();
