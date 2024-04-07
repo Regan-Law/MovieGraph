@@ -19,6 +19,11 @@ def index():
     return render_template("index.html")
 
 
+@app.route("/search", methods=["GET", "POST"])
+def search():
+    return render_template("search.html")
+
+
 @app.route("/start", methods=["GET", "POST"])
 def start():
     if request.method == "POST":
@@ -48,3 +53,4 @@ def query():
 
 if __name__ == "__main__":
     app.run()
+;

@@ -19,12 +19,12 @@ MERGE (p:Movie{mid:toInteger(line.mid),title:line.title,introduction:line.introd
 rating:toFloat(line.rating),releasedate:line.releasedate,url:line.url})
 
 
-// 导入关系 actedin  电影是谁参演的 1对多
+// 导入关系actedin电影是谁参演的 1对多
 LOAD CSV WITH HEADERS FROM "file:///person_to_movie.csv" AS line 
 match (from:Person{pid:toInteger(line.pid)}),(to:Movie{mid:toInteger(line.mid)})  
 merge (from)-[r:actedin{pid:toInteger(line.pid),mid:toInteger(line.mid)}]->(to)
 	
-//导入关系  电影是什么类型 == 1对多
+//导入关系is电影是什么类型 == 1对多
 LOAD CSV WITH HEADERS FROM "file:///movie_to_genre.csv" AS line
 match (from:Movie{mid:toInteger(line.mid)}),(to:Genre{gid:toInteger(line.gid)})  
 merge (from)-[r:is{mid:toInteger(line.mid),gid:toInteger(line.gid)}]->(to)

@@ -33,8 +33,8 @@
       > - 爬虫导入成功后需要运行generate_dict.py生成用户字典
       > - 爬虫爬取的数据仅用于学习,请勿用于商业用途
 
-    - static: 用于存放静态文件,如html,css,js等,其中使用了bootstrap和jquery,可自行添加.
-    - templates: 用于存放html模板,其中`index.html`为欢迎界面,`QA.html`为主要界面
+    - static: 用于存放静态文件,如html,css,js等,其中使用了bootstrap和jquery和neovis.js.
+    - templates: 用于存放html模板,其中`index.html`为欢迎界面,`search.html`为知识图谱页面,`QA.html`为问答系统界面
     - utils: 用于存放一些工具函数,如Neo4j数据库连接和查询工具,数据处理,问题分类和问题模板等
         - preprocess_data.py: 用于数据的处理,读取问题模板,对接受的问题进行词性划分等,主要使用了jieba库
         - question_classification.py: 使用了sk-learn朴素贝叶斯进行训练并使用TF-IDF进行特征提取和jieba库进行切割以完成对问题的分类
@@ -45,7 +45,6 @@
     - test: 测试用文件夹,用于测试
     - README.md: 项目说明文件
     - requirements.txt: 项目依赖文件 **注意:请使用`pip install -r requirements.txt`安装相关依赖库**
-    - package.json: 项目依赖文件 **注意:请使用`npm install`安装neovis库**
 
 > **重要提醒**:
 >

@@ -1,32 +1,76 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
-	<head>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		<link href="../static/css/bootstrap.min.css" rel="stylesheet" />
-		<title>查询</title>
-	</head>
-	<body>
-		<div class="container-fluid">
-			<div class="container" style="margin-top: 130px">
-				<h1 style="color: white; text-align: center">
-					基于Neo4j的电影知识图谱
-				</h1>
-			</div>
-			<div class="row align-items-center" style="margin-top: 80px">
-				<div class="d-flex justify-content-center">
-					<a
-						class="btn btn-light btn-lg"
-						href="{{ url_for('start') }}"
-						style="font-weight: bolder"
-						>开启探索</a
-					>
-				</div>
-			</div>
+
+<head>
+	<meta charset="utf-8"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1"/>
+	<link href="../static/css/bootstrap.min.css" rel="stylesheet"/>
+	<script src="../static/js/bootstrap.min.js"></script>
+	<title>基于Neo4j的电影知识图谱</title>
+	<style type="text/css">
+        body {
+            background-size: auto;
+            background: url("../static/img/background.jpg") center 137vh;
+            overflow: hidden;
+        }
+
+        #viz {
+            width: 85%;
+            height: 82vh;
+        }
+
+        #info {
+            background-color: #f8f9fa;
+            border-radius: 5px;
+            height: fit-content;
+            max-height: 81vh;
+            overflow-y: auto;
+            margin-top: 20px;
+            position: relative;
+        }
+
+        #collapse {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+        }
+	</style>
+</head>
+
+<body onload="draw()">
+<div class="container-fluid">
+	<div class="row">
+		<h1 style="color: white; text-align: center; margin-top: 10px">
+			基于Neo4j的电影知识图谱
+		</h1>
+	</div>
+	<div class="d-flex justify-content-end" style="position: absolute; top: 20px; right: 10px">
+		<a class="btn btn-light btn-lg" href="{{ url_for('start') }}"
+		   style="font-weight: bolder; margin-right: 20px">知识图谱问答</a>
+	</div>
+	<div class="row" style="margin-top: 20px; padding-left:30%;padding-right:30%">
+		<div class="input-group">
+			<label for="info"></label><input type="text" id="entity" placeholder="请输入要查询的电影名或演员名"
+			                                 class="form-control"/>
+			<button type="submit" id="find" class="btn btn-outline-light">
+				查询
+			</button>
 		</div>
-		<script src="../static/js/bootstrap.bundle.js"></script>
-		<script src="../static/js/bootstrap.min.js"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/vis-network/7.3.2/vis.min.js"></script>
-		<script src="https://raw.githack.com/johnymontana/neovis.js/master/dist/neovis.js"></script>
-	</body>
+	</div>
+	<div class="d-flex justify-content-center">
+		<div id="viz"></div>
+		<div class="col-3 card" id="info">
+			<button class="btn-close" aria-label="Close" id="collapse"></button>
+			<div class="card-header" id="header" style="font-weight: bold;">
+			</div>
+			<ul class="list-group list-group-flush" id="list"></ul>
+		</div> <!-- 添加侧边栏用于显示节点属性信息 -->
+	</div>
+</div>
+
+<script src="../static/js/jquery-3.1.1.min.js"></script>
+<script src="../static/js/neovis.js"></script>
+<script src="../static/js/kg.js" async></script>
+</body>
+
 </html>
