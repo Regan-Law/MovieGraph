@@ -1,3 +1,4 @@
+# 该文件目前废弃，因为其效果不如jieba自定义词典的词性标注效果好
 import requests
 import json
 

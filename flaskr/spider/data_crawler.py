@@ -7,7 +7,7 @@ from bs4 import BeautifulSoup
 from proxy_pool import getHtml
 
 # 请求热门电影的URL
-url = "https://movie.douban.com/j/search_subjects?type=movie&tag=%E6%9C%80%E6%96%B0&page_limit=1&page_start=0"
+url = "https://movie.douban.com/j/search_subjects?type=movie&tag=%E6%9C%80%E6%96%B0&page_limit=1&page_start=0"  # 如有更多需要可自行更改tag以爬取不同标签下的电影数据
 headers = {
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36 Edg/120.0.0.0",
 }
