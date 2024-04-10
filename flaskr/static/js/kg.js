@@ -92,7 +92,7 @@ function draw() {
 //点击查询
 find.click(function () {
     var text = entity.val();
-    var cypher = "MATCH (n:Person)-[r:actedin]->(m:Movie)-[r2:is]->(g:Genre) WHERE m.title contains '" + text + "' or n.name contains '" + text + "' RETURN * LIMIT 100";
+    var cypher = "MATCH (n:Person)-[r:actedin]->(m:Movie)-[r2:is]->(g:Genre) WHERE m.title contains '" + text + "' or n.name contains '" + text + "' RETURN * LIMIT 10";
     if (text.length > 0) {
         viz.renderWithCypher(cypher);
     } else {

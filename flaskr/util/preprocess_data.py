@@ -18,29 +18,12 @@ def enablePrint():
 	sys.stdout = sys.__stdout__
 
 
-# blockPrint()
-
-# enablePrint()
-
-
 class Question:
 	def __init__(self):
 		# 初始化相关设置：读取词汇表，训练分类器，连接数据库
 		self.init_config()
 
 	def init_config(self):
-		# # 读取词汇表
-		# with(open("flaskr/data/vocabulary.txt", "r", encoding="utf-8")) as fr:
-		# 	vocab_list = fr.readlines()
-		# vocab_dict = {}
-		# vocablist = []
-		# for one in vocab_list:
-		# 	word_id, word = str(one).strip().split(":")
-		# 	vocab_dict[str(word).strip()] = int(word_id)
-		# 	vocablist.append(str(word).strip())
-		# # print(vocab_dict)
-		# self.vocab = vocab_dict
-
 		# 训练分类器
 		self.classify_model = Question_classify()
 		# 读取问题模板
@@ -54,7 +37,6 @@ class Question:
 			mode_id, mode_str = str(one_mode).strip().split(":")
 			# 处理一行，并存入
 			self.question_mode_dict[int(mode_id)] = str(mode_str).strip()
-		# print(self.question_mode_dict)
 
 		# 创建问题模板对象
 		self.questiontemplate = QuestionTemplate()
@@ -70,6 +52,7 @@ class Question:
 		self.answer = self.query_template()
 		return self.answer
 
+	# 对问题进行处理和词性标注
 	def question_posseg(self):
 		jieba.load_userdict("flaskr/data/user_dict.txt")
 		clean_question = re.sub(
@@ -94,6 +77,7 @@ class Question:
 		print(result)
 		return result
 
+	# 匹配问题模板
 	def get_question_template(self):
 		# 抽象问题
 		for item in ["nr", "nm", "ng"]:
