@@ -1,6 +1,6 @@
-//cypher命令,依次在Neo4j中执行
+//cypher命令,依次在Neo4j Browser中执行
 
-//导入节点 电影类型  == 注意类型转换
+//导入节点 电影类型   注意类型转换
 LOAD CSV WITH HEADERS  FROM "file:///genre.csv" AS line
 MERGE (p:Genre{gid:toInteger(line.gid),name:line.name})
 	
@@ -24,7 +24,7 @@ LOAD CSV WITH HEADERS FROM "file:///person_to_movie.csv" AS line
 match (from:Person{pid:toInteger(line.pid)}),(to:Movie{mid:toInteger(line.mid)})  
 merge (from)-[r:actedin{pid:toInteger(line.pid),mid:toInteger(line.mid)}]->(to)
 	
-//导入关系is电影是什么类型 == 1对多
+//导入关系is电影是什么类型  1对多
 LOAD CSV WITH HEADERS FROM "file:///movie_to_genre.csv" AS line
 match (from:Movie{mid:toInteger(line.mid)}),(to:Genre{gid:toInteger(line.gid)})  
 merge (from)-[r:is{mid:toInteger(line.mid),gid:toInteger(line.gid)}]->(to)
