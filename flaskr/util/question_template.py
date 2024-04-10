@@ -51,18 +51,18 @@ class QuestionTemplate:
 
 	# 获取电影名字
 	def get_movie_name(self):
-		## 获取nm在原问题中的下标
+		# 获取nm在原问题中的下标
 		tag_index = self.question_flag.index("nm")
-		## 获取电影名称
+		# 获取电影名称
 		movie_name = self.question_word[tag_index]
 		return movie_name
 
 	def get_name(self, type_str):
 		name_count = self.question_flag.count(type_str)
 		if name_count == 1:
-			## 获取nm在原问题中的下标
+			# 获取nm在原问题中的下标
 			tag_index = self.question_flag.index(type_str)
-			## 获取电影名称
+			# 获取电影名称
 			name = self.question_word[tag_index]
 			return name
 		else:
