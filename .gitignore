@@ -12,3 +12,5 @@ node_modules/
 .vscode/
 # IDE files
 .idea/
+# Python cache
+**/__pycache__

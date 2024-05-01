@@ -47,8 +47,7 @@
 	- requirements.txt: 项目依赖文件 **注意:请使用`pip install -r requirements.txt`安装相关依赖库**
 
 > **重要提醒**:
->
-由于jieba分词模块的词性标注功能不稳定,将会导致外国人名无法被正确识别,所以本项目中使用了自定义的词典,请将jieba库的`__init__.py`
+> 由于jieba分词模块的词性标注功能不稳定,将会导致外国人名无法被正确识别,所以本项目中使用了自定义的词典,请将jieba库的`__init__.py`
 > 中的
 > ``` python
 > re_han_internal = re.compile("([\u4E00-\u9FD5a-zA-Z0-9+#&\._]+)")

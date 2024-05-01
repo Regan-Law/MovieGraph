@@ -40,10 +40,6 @@ if not os.path.exists("./data/Neo4j_import/person_to_movie.csv"):
 response = getHtml(url, headers)
 data = response.json()
 
-# 初始化类型字典和演员字典
-genre_dict = {}
-person_dict = {}
-
 # 遍历每部电影
 for movie in data["subjects"]:
     movie_url = movie["url"]
