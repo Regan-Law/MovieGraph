@@ -117,7 +117,7 @@ class QuestionTemplate:
 		answer_set = set(answer)
 		answer_list = list(answer_set)
 		answer = "、".join(answer_list)
-		final_answer = movie_name + "是" + str(answer) + "等类型的电影！"
+		final_answer = movie_name + "是" + str(answer) + "类型的电影！"
 		return final_answer
 
 	# 3:nm 简介
@@ -233,7 +233,7 @@ class QuestionTemplate:
 				continue
 		answer = "、".join(list(set(result)))
 		print(answer)
-		final_answer = actor_name + "演过的电影有" + answer + "等类型。"
+		final_answer = actor_name + "演过的电影有" + answer + "类型。"
 		return final_answer
 
 	# 11:nnt 电影合作

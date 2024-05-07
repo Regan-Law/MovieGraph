@@ -49,13 +49,12 @@ class Question_classify:
         # 训练模型
         self.model = self.train_model_NB()
 
-    # 获取训练数据
-
     # 训练并测试模型-NB
     def train_model_NB(self):
         X_train, y_train = self.train_x, self.train_y
         self.tv = TfidfVectorizer()
         print("train_x:", X_train)
+        print("train_y:", y_train)
         train_data = self.tv.fit_transform(X_train).toarray()
         print("train_data:", train_data)
         clf = MultinomialNB(alpha=0.01)

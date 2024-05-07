@@ -1,21 +1,9 @@
-import os
 import re
-import sys
 
 import jieba.posseg
 
 from flaskr.util.question_classification import Question_classify
 from flaskr.util.question_template import QuestionTemplate
-
-
-# Disable
-def blockPrint():
-	sys.stdout = open(os.devnull, "w")
-
-
-# Restore
-def enablePrint():
-	sys.stdout = sys.__stdout__
 
 
 class Question:
@@ -54,24 +42,24 @@ class Question:
 
 	# 对问题进行处理和词性标注
 	def question_posseg(self):
-		jieba.load_userdict("flaskr/data/user_dict.txt")
+		jieba.load_userdict("flaskr/data/user_dict.txt")  # 加载用户词典
 		clean_question = re.sub(
 			"[\s+\!\/_,$%^*(+\"')]+|[+——()?【】“”！，。？、~@#￥%……&*（）]+",
 			"",
 			self.raw_question,
-		)
+		)  # 对问题进行清洗
 		self.clean_question = clean_question
-		question_seged = jieba.posseg.cut(str(clean_question))
+		question_seged = jieba.posseg.cut(str(clean_question))  # 进行词性标注，产生词-词性对
 		result = []
 		question_word, question_flag = [], []
 		for w in question_seged:
-			temp_word = f"{w.word}/{w.flag}"
+			temp_word = f"{w.word}/{w.flag}"  # 格式化字符串
 			result.append(temp_word)
 			# 预处理问题
 			word, flag = w.word, w.flag
 			question_word.append(str(word).strip())
 			question_flag.append(str(flag).strip())
-		assert len(question_flag) == len(question_word)
+		assert len(question_flag) == len(question_word)  # 确保每个词语都有对应的词性标记
 		self.question_word = question_word
 		self.question_flag = question_flag
 		print(result)

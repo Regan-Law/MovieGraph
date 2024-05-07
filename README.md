@@ -56,3 +56,7 @@
 > ``` python
 > re_han_internal = re.compile("([\u4E00-\u9FD5a-zA-Z0-9+#&\._·]+)")
 > ```
+
+## 参考
+
+[simple_movie_qa_with_KG](https://github.com/IrvingBei/simple_movie_qa_with_KG)
