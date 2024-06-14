@@ -33,7 +33,9 @@
       > - 爬虫导入成功后需要运行generate_dict.py生成用户字典
       > - 爬虫爬取的数据仅用于学习,请勿用于商业用途
 
-	- static: 用于存放静态文件,如html,css,js等,其中使用了bootstrap和jquery和neovis.js.
+	- static: 用于存放静态文件,如html,css,js等,其中使用了bootstrap和jquery和neovis.js
+		- kg.js: 知识图谱的js文件，使用了neovis.js，主要实现了知识图谱可视化
+		- qa.js: 问答系统的js文件，使用了xmlhttp进行ajax请求，主要实现了数据交换
 	- templates: 用于存放html模板,其中`index.html`为欢迎界面,`search.html`为知识图谱页面,`QA.html`为问答系统界面
 	- utils: 用于存放一些工具函数,如Neo4j数据库连接和查询工具,数据处理,问题分类和问题模板等
 		- preprocess_data.py: 用于数据的处理,读取问题模板,对接受的问题进行词性划分等,主要使用了jieba库

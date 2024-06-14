@@ -251,7 +251,7 @@ class QuestionTemplate:
 				actor_name_list[0]
 				+ "和"
 				+ actor_name_list[1]
-				+ "一起演过的电影主要是"
+				+ "一起演过的电影主要有"
 				+ answer
 				+ "!"
 		)
