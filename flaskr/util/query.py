@@ -4,7 +4,7 @@ from py2neo import Graph
 class Query:  # 查询类
 	def __init__(self):  # 初始化
 		self.graph = Graph(
-			"http://localhost:7474", auth=("neo4j", "yan011017"), name="neo4j"
+			'bolt://localhost:7687', auth=("neo4j", "yan011017"), name="neo4j"
 		)  # 连接数据库
 
 	def run(self, cql):  # 执行查询

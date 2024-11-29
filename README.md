@@ -43,7 +43,7 @@
 		- question_template.py: 定义了问题模板,用于对问题进行匹配,返回对应问题模板
 		- query.py: 用于连接数据库并执行查询,返回查询结果
 	- \_\_init\_\_.py: 应用工厂文件,用于创建应用
-	- app.py: 应用文件,运行可启动本项目,**注意:运行前确保Neo4j数据库已连接且地址端口`localhost:5000`未被占用**
+	- app.py: 应用文件,运行可启动本项目,**注意:运行前确保Neo4j数据库已连接且地址端口`localhost:5000`未被占用或自定义未被占用的端口**
 	- test: 测试用文件夹,用于测试
 	- README.md: 项目说明文件
 	- requirements.txt: 项目依赖文件 **注意:请使用`pip install -r requirements.txt`安装相关依赖库**
@@ -58,7 +58,10 @@
 > ``` python
 > re_han_internal = re.compile("([\u4E00-\u9FD5a-zA-Z0-9+#&\._·]+)")
 > ```
-
+## 使用注意
+- 使用前需要运行`pip install -r requirements.txt`命令安装相关依赖
+- 使用*Neo4j*时需要创建一个新的数据库并设置密码,同时打开其下的`import`文件夹并将`flaskr/data/Neo4j_import`下的数据复制进该文件夹中并重启该数据库
+- 使用前要修改`flaskr/util/query.py`和`flaskr/static/js/kg.js`下的密码
 ## 参考
 
 [simple_movie_qa_with_KG](https://github.com/IrvingBei/simple_movie_qa_with_KG)

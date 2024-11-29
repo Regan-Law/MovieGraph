@@ -52,4 +52,5 @@ def query():
 
 
 if __name__ == "__main__":
+	# app.run(host='localhost', port=5000)	如需要可进行端口配置防止端口占用
 	app.run()
