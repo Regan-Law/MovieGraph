@@ -1,5 +1,5 @@
 beautifulsoup4==4.12.3
-Flask==2.1.1
+Flask==2.2.5
 jieba==0.39
 pandas==2.0.3
 py2neo==2021.2.3
